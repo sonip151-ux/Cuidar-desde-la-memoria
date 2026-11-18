@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#172554">
+<title>Cuidar desde la memoria | Museo Casa de la Memoria</title>
+<meta name="description" content="Recorrido educativo interactivo para estudiantes de Enfermería, con recorridos virtuales originales del Museo Casa de la Memoria y realidad aumentada.">
+<style>
+:root{--navy:#172554;--blue:#244b68;--teal:#0f766e;--coral:#f97360;--gold:#f4c95d;--lav:#eceaff;--paper:#f6f7fb;--ink:#20243a;--muted:#647084;--line:#e4e8f0}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Arial,sans-serif;background:var(--paper);color:var(--ink);line-height:1.58}
+a{color:var(--teal);font-weight:650}button,.btn{border:0;border-radius:13px;padding:12px 17px;background:var(--teal);color:#fff;font-weight:750;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:.96rem}button:hover,.btn:hover{filter:brightness(.94);transform:translateY(-1px)}button:focus-visible,a:focus-visible,textarea:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:auto;padding:0 20px}.hero{position:relative;overflow:hidden;color:#fff;background:radial-gradient(circle at 85% 15%,#467c86 0,transparent 34%),linear-gradient(125deg,#172554 0%,#244b68 62%,#0f766e 100%);padding:62px 0 58px}.hero:after{content:"";position:absolute;width:320px;height:320px;border:1px solid #ffffff35;border-radius:50%;right:-80px;bottom:-170px;box-shadow:0 0 0 28px #ffffff0c,0 0 0 58px #ffffff0a}.eyebrow{text-transform:uppercase;letter-spacing:.15em;font-size:.76rem;font-weight:800;color:var(--gold)}h1{font-size:clamp(2.5rem,7vw,5.1rem);line-height:.98;letter-spacing:-.045em;margin:14px 0 18px;max-width:780px}h2{color:var(--navy);font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.15;margin:0 0 14px}h3{color:var(--navy);margin:6px 0 8px;font-size:1.2rem}.hero p{max-width:740px;color:#e8f1f5;font-size:1.08rem}.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.btn-light{background:#fff;color:var(--navy)}.btn-outline{background:transparent;border:1px solid #ffffff99;color:#fff}.pill{display:inline-block;border:1px solid #ffffff66;background:#ffffff15;padding:6px 12px;border-radius:30px;font-size:.85rem;margin-top:8px}
+nav{position:sticky;top:0;z-index:20;background:#fff;box-shadow:0 3px 18px #17255414;display:flex;gap:7px;overflow-x:auto;padding:10px max(18px,calc((100% - 1120px)/2));scrollbar-width:thin}nav button{background:#eef2f7;color:var(--navy);white-space:nowrap;padding:10px 14px;font-size:.88rem}nav button.active{background:var(--navy);color:#fff}
+main{padding:30px 0 70px}.view{animation:fade .28s ease}@keyframes fade{from{opacity:.35;transform:translateY(5px)}to{opacity:1;transform:none}}.hidden{display:none!important}
+.panel,.card,.station-detail{background:#fff;border:1px solid var(--line);border-radius:20px;padding:24px;margin:16px 0;box-shadow:0 8px 28px #1725540b}.tag{font-size:.75rem;text-transform:uppercase;letter-spacing:.1em;font-weight:850;color:var(--teal)}.muted{color:var(--muted)}.callout{background:var(--lav);border-left:5px solid #8b7cf6;padding:18px 20px;border-radius:14px;margin:18px 0}.callout strong{color:var(--navy)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(235px,1fr));gap:16px}.feature{border-top:5px solid var(--coral)}.feature:nth-child(2){border-color:var(--teal)}.feature:nth-child(3){border-color:var(--gold)}
+.station-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:0 7px 25px #1725540a;display:flex;flex-direction:column}.station-card .station-top{padding:20px 20px 12px}.station-card .station-bottom{padding:0 20px 20px;margin-top:auto}.station-number{display:inline-flex;width:34px;height:34px;border-radius:11px;background:var(--navy);color:#fff;align-items:center;justify-content:center;font-weight:850;margin-right:7px}.station-card p{font-size:.94rem;color:#596174}.station-card .tag{margin-bottom:7px}.station-card button{width:100%}
+.viewer{background:#101827;border-radius:16px;padding:10px;color:#fff;margin:18px 0}.viewer iframe{width:100%;height:390px;border:0;border-radius:10px;background:#f0f2f6}.viewer-caption{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:8px 4px 2px}.viewer-caption p{margin:4px 0;color:#dce5ee;font-size:.88rem}
+.detail-head{display:flex;justify-content:space-between;gap:16px;align-items:flex-start;flex-wrap:wrap}.detail-grid{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(260px,.7fr);gap:18px}.concepts{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.concept{background:#e8f5f2;color:#0b625c;border-radius:30px;padding:6px 11px;font-size:.82rem;font-weight:750}.case{background:#fff7e6;border:1px solid #f5dfa7;border-radius:15px;padding:18px;margin:16px 0}.case strong{color:#7a4c00}.choice{display:block;width:100%;text-align:left;background:#f1f5f9;color:var(--ink);margin:9px 0;border:2px solid transparent;justify-content:flex-start;line-height:1.4}.choice:hover,.choice:focus{border-color:var(--teal)}.feedback{padding:15px;border-radius:13px;background:#e8f5f2;margin-top:12px}.feedback.bad{background:#fff0ed}.progress{height:8px;background:#e8edf3;border-radius:30px;overflow:hidden;margin:12px 0 22px}.progress span{display:block;height:100%;background:linear-gradient(90deg,var(--teal),#68b9aa);width:0;transition:width .3s}
+.arbox{background:linear-gradient(145deg,#111b35,#203f55);color:#fff;border-radius:22px;padding:24px}.arbox h2{color:#fff}.arbox a{color:#ffe28a}.arbox .muted{color:#cbd5e1}.marker-guide{background:#fff;color:var(--navy);border-radius:15px;padding:16px;margin:16px 0}.marker-guide img{display:block;width:min(240px,100%);height:auto;margin:12px auto;border:1px solid #ddd}.marker-guide .muted{color:var(--muted)}#ar-status{padding:12px;background:#ffffff18;border-radius:10px;margin:12px 0;color:#fff}#ar-camera{width:100%;min-height:300px;border-radius:14px;overflow:hidden;background:#05070b;position:relative}
+#ar-camera.ar-fullscreen{position:fixed!important;inset:0!important;z-index:99999!important;width:100vw!important;height:100vh!important;height:100dvh!important;min-height:100vh!important;border-radius:0!important;margin:0!important;padding:0!important;overflow:hidden!important;background:#000!important}
+#ar-camera a-scene{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:100%!important}
+#ar-camera canvas.a-canvas{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;z-index:1!important}
+#ar-camera video{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;max-width:none!important;max-height:none!important;object-fit:cover!important}
+html:has(body.ar-open),body.ar-open{overflow:hidden!important}
+body.ar-open #ar-camera.ar-fullscreen{display:block!important;position:fixed!important;inset:0!important;top:0!important;left:0!important;right:0!important;bottom:0!important;width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;max-height:none!important;transform:none!important;z-index:2147483000!important;isolation:isolate!important;background:#000!important}
+body.ar-open #ar-camera a-scene{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;overflow:hidden!important}
+body.ar-open #ar-camera .ar-hud{position:fixed!important;z-index:2147483002!important;top:calc(env(safe-area-inset-top,0px) + 12px)!important;left:12px!important;right:12px!important}
+body.ar-open #ar-camera .ar-hint{position:fixed!important;z-index:2147483002!important;bottom:calc(env(safe-area-inset-bottom,0px) + 20px)!important}
+body.ar-open #ar-camera canvas.a-canvas{z-index:2!important;pointer-events:none!important;background:transparent!important}
+body.ar-open #ar-camera #ar-visible-camera{display:block!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;object-fit:cover!important;z-index:1!important;background:#000!important;pointer-events:auto!important}
+body.ar-open #ar-camera video:not(#ar-visible-camera){z-index:0!important}
+body.ar-open #ar-camera a-scene{z-index:2!important;pointer-events:none!important}
+body.ar-open #ar-camera .ar-hud,body.ar-open #ar-camera .ar-hint{z-index:10!important;pointer-events:auto!important}
+body.ar-open #ar-camera .ar-hud button{pointer-events:auto!important}
+
+.ar-hud{position:absolute;z-index:5;top:env(safe-area-inset-top,12px);left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;gap:10px;pointer-events:none}
+.ar-hud>*{pointer-events:auto}.ar-hud-label{background:#101827dd;color:#fff;padding:9px 12px;border-radius:12px;font-size:.83rem;max-width:70%;backdrop-filter:blur(8px)}
+.ar-hud button{background:#f97360;color:#fff;padding:10px 14px;box-shadow:0 3px 15px #0005}
+.ar-hint{position:absolute;z-index:5;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);left:12px;right:12px;text-align:center;color:#fff;background:#101827d9;padding:12px;border-radius:12px;font-size:.9rem;pointer-events:none}
+body.ar-open{overflow:hidden}
+body.ar-open > video:not(#ar-visible-camera){visibility:hidden!important;pointer-events:none!important}
+body.ar-open #ar-camera{contain:layout paint!important}
+.note{font-size:.86rem;color:#cbd5e1}
+textarea{width:100%;min-height:95px;padding:13px;border:1px solid #cbd5e1;border-radius:12px;font:inherit;margin:7px 0 14px}footer{text-align:center;padding:26px;color:#687084;font-size:.86rem}
+@media(max-width:720px){.hero{padding:45px 0}.detail-grid{grid-template-columns:1fr}.viewer iframe{height:310px}.panel,.station-detail{padding:18px}.wrap{padding:0 15px}}
+
+/* Controles para cambiar de estación dentro del visor */
+body.ar-open #ar-camera .ar-switcher{position:fixed!important;z-index:2147483004!important;top:calc(env(safe-area-inset-top,0px) + 80px)!important;left:12px!important;right:12px!important;display:flex!important;gap:8px;align-items:center;padding:9px;border-radius:14px;background:#101827e8;pointer-events:auto!important;box-shadow:0 5px 20px #0007}
+body.ar-open #ar-camera .ar-switcher select{min-width:0;flex:1;width:100%;padding:10px 7px;border-radius:9px;background:white;color:#10263c;border:0;font-size:14px;font-weight:600}
+body.ar-open #ar-camera .ar-switcher button{white-space:nowrap;padding:10px 12px;font-size:14px;background:#0f766e}
+body.ar-open #ar-camera .ar-switcher button:disabled{opacity:.4}
+@media(max-width:390px){body.ar-open #ar-camera .ar-switcher{top:calc(env(safe-area-inset-top,0px) + 94px)!important}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<div class="eyebrow">Experiencia didáctica · Formación en Enfermería</div>
+<h1>Cuidar desde<br>la memoria</h1>
+<p>Estaciones de cuidado aumentadas a partir del Museo Casa de la Memoria. Un recorrido para relacionar memoria histórica, dignidad, derechos humanos y decisiones de cuidado humanizado.</p>
+<span class="pill">Estudiantes de Enfermería · 7.º y 8.º semestre</span>
+<div class="hero-actions"><button class="btn-light" onclick="showView('estaciones')">Comenzar experiencia <span aria-hidden="true">→</span></button><button class="btn-outline" onclick="showView('proyecto')">Conocer el proyecto</button></div>
+</div></header>
+<nav aria-label="Navegación principal">
+<button class="active" data-view="inicio">Inicio</button><button data-view="proyecto">Proyecto</button><button data-view="estaciones">Mapa de estaciones</button><button data-view="reto">Simulación de cuidado</button><button data-view="ra">Realidad aumentada</button><button data-view="reflexion">Cierre y fuentes</button>
+</nav>
+<main class="wrap">
+<section id="inicio" class="view">
+<div class="panel"><div class="tag">Bienvenida</div><h2>La memoria también orienta el cuidado</h2>
+<p>Esta experiencia toma como punto de partida cuatro exposiciones que aparecen en la página oficial de recorridos virtuales del Museo Casa de la Memoria de Medellín. En cada estación podrás abrir el recorrido original, conocer su relación formativa con Enfermería y resolver una situación ficticia de cuidado.</p>
+<div class="callout"><strong>Pregunta orientadora</strong><p>¿Cómo puede el reconocimiento de la memoria histórica transformar nuestras decisiones de cuidado para proteger la dignidad, respetar las experiencias personales y evitar la revictimización?</p></div>
+<div class="grid"><div class="card feature"><div class="tag">01 · Memoria</div><h3>Explorar</h3><p class="muted">Acercarse a las narrativas, exposiciones y contenidos públicos del museo.</p></div><div class="card feature"><div class="tag">02 · Cuidado</div><h3>Relacionar</h3><p class="muted">Conectar lo observado con dignidad, escucha, derechos y contexto social.</p></div><div class="card feature"><div class="tag">03 · Decisión</div><h3>Actuar</h3><p class="muted">Tomar decisiones en escenarios educativos ficticios y reflexionar sobre sus efectos.</p></div></div>
+</div>
+<div class="panel"><div class="tag">Objetivo de la experiencia</div><p>Fortalecer la reflexión crítica de los estudiantes de Enfermería sobre el cuidado humanizado de personas y comunidades afectadas por experiencias de violencia, mediante la exploración de recorridos virtuales reales del Museo Casa de la Memoria y actividades complementarias con realidad aumentada.</p><button onclick="showView('estaciones')">Ir al mapa de estaciones</button></div>
+</section>
+
+<section id="proyecto" class="view hidden">
+<div class="panel"><div class="tag">Sentido pedagógico</div><h2>¿Por qué un museo para aprender Enfermería?</h2><p>El museo permite aproximarse a memorias, contextos y experiencias colectivas que ayudan a comprender que las necesidades de cuidado no se explican únicamente desde la enfermedad. El territorio, los vínculos, las pérdidas, la participación y la dignidad también importan para una atención integral.</p>
+<h3>Objetivos específicos</h3><ol><li>Reconocer la importancia de la memoria histórica para comprender las experiencias de personas y comunidades.</li><li>Relacionar dignidad humana y derechos humanos con las prácticas de Enfermería.</li><li>Desarrollar decisiones de cuidado respetuosas y libres de revictimización.</li><li>Explorar recursos virtuales y realidad aumentada como herramientas complementarias de aprendizaje.</li></ol>
+<h3>¿Cómo se realiza?</h3><p>Explora el recorrido virtual original → identifica un contenido que te genere una pregunta → revisa su relación con Enfermería → activa la capa de realidad aumentada → resuelve el reto → escribe tu reflexión.</p>
+</div>
+<div class="panel"><div class="tag">Diferencia tecnológica</div><div class="grid"><div><h3>Recorrido virtual</h3><p class="muted">Permite explorar un espacio o exposición digital a través de una pantalla.</p></div><div><h3>Realidad aumentada</h3><p class="muted">Integra elementos digitales en la vista de la cámara y los ancla a un marcador físico reconocido.</p></div></div><p class="muted">La RA de este proyecto es una capa didáctica complementaria creada por el equipo; no reemplaza ni modifica el contenido original del museo.</p></div>
+</section>
+
+<section id="estaciones" class="view hidden">
+<div class="panel"><div class="tag">Mapa interactivo</div><h2>Cuatro estaciones del Museo Casa de la Memoria</h2><p>Selecciona una estación para consultar su descripción, abrir el recorrido original y resolver una situación educativa. Los recorridos pueden tardar en cargar porque algunos utilizan contenido interactivo basado en JavaScript.</p><p class="muted">Los nombres y descripciones generales se toman del catálogo oficial del museo. Los vínculos con Enfermería y los casos son elaboraciones didácticas del equipo.</p></div>
+<div class="grid" id="station-map"></div>
+<div id="station-detail" class="station-detail hidden"></div>
+</section>
+
+<section id="reto" class="view hidden">
+<div class="panel"><div class="tag">Simulación educativa</div><h2>Decisiones de cuidado: ¿cómo actuar sin revictimizar?</h2><p>Lee cada situación ficticia y selecciona la respuesta que consideres más respetuosa. Recibirás retroalimentación para analizar la decisión.</p><div class="progress"><span id="quiz-progress"></span></div><div id="quiz-container"></div><div id="quiz-summary" class="callout hidden"></div></div>
+</section>
+
+<section id="ra" class="view hidden">
+<div class="arbox"><div class="tag" style="color:#f9d976">WebAR · Marcador Hiro</div><h2>Activa la experiencia aumentada</h2><p>Selecciona primero una estación en el mapa. Al reconocer el marcador Hiro, aparecerá un panel tridimensional con el mensaje pedagógico correspondiente a esa estación.</p>
+<div class="marker-guide"><strong>1. Prepara el marcador Hiro</strong><p class="muted">Imprime el marcador o muéstralo en otra pantalla. Si escaneas desde un iPhone, necesitas mostrar el marcador en una hoja o en otro dispositivo.</p><img alt="Marcador Hiro de AR.js" src="https://raw.githubusercontent.com/AR-js-org/AR.js/master/data/images/hiro.png" onerror="this.style.display='none';document.getElementById('marker-fallback').classList.remove('hidden')"><p id="marker-fallback" class="muted hidden">No se pudo cargar el marcador desde el repositorio. Usa el marcador Hiro que ya habías utilizado para probar tu versión funcional.</p><p class="muted">Estación seleccionada: <strong id="ar-station-name">Ninguna. Elige una estación.</strong></p></div>
+<label for="ar-station-select" style="display:block;font-weight:700;margin:12px 0 7px">2. Elige la estación que deseas escanear</label>
+<select id="ar-station-select" onchange="chooseARStation(this.value)" style="width:100%;max-width:100%;padding:13px;border-radius:12px;font:inherit;color:#13233a;background:#fff;border:2px solid #d6e5ed"><option value="">Selecciona una estación...</option></select>
+<p><strong>3. Inicia la cámara</strong></p><p class="note">No necesitas estar físicamente en el museo ni apuntar a una fotografía de la exposición. La cámara reconoce el marcador Hiro; el contenido que aparece corresponde a la estación que seleccionaste previamente en el mapa.</p><button id="start-ar" onclick="startAR()">Permitir cámara e iniciar RA</button> <button id="stop-ar" class="hidden" onclick="closeARAndReset()">Detener cámara</button>
+<div id="ar-status" role="status">Estado: experiencia sin iniciar. La cámara requiere HTTPS y permiso del navegador.</div><div id="ar-camera" class="hidden"></div>
+<p class="note">Al reconocer el marcador, el panel 3D mostrará el concepto y la pregunta de la estación seleccionada. Mueve el marcador lentamente para observar cómo el contenido permanece anclado a él.</p><p class="note"><strong>Requisitos:</strong> sitio HTTPS, conexión a internet, navegador compatible, cámara y marcador visible con buena iluminación.</p>
+</div>
+<div class="panel"><h3>¿Qué hace que sea realidad aumentada?</h3><ul><li>La cámara reconoce un marcador físico Hiro.</li><li>El contenido digital aparece anclado al marcador en el espacio de la cámara.</li><li>El contenido cambia según la estación seleccionada.</li></ul></div>
+</section>
+
+<section id="reflexion" class="view hidden">
+<div class="panel"><div class="tag">Cierre</div><h2>Reflexiona sobre lo aprendido</h2><p><strong>Pregunta principal:</strong> Después de recorrer estas experiencias, ¿cómo cambiaría tu manera de brindar cuidado a una persona cuya historia está atravesada por la violencia, el desplazamiento o la pérdida?</p>
+<label for="reflection1">¿Qué significa cuidar desde la memoria?</label><textarea id="reflection1" placeholder="Escribe tu reflexión..."></textarea><label for="reflection2">¿Cómo puede Enfermería evitar la revictimización?</label><textarea id="reflection2" placeholder="Escribe tu reflexión..."></textarea><label for="reflection3">¿Por qué es importante comprender el contexto social y familiar?</label><textarea id="reflection3" placeholder="Escribe tu reflexión..."></textarea><label for="reflection4">¿Qué aprendizaje te llevas para tu práctica profesional?</label><textarea id="reflection4" placeholder="Escribe tu reflexión..."></textarea>
+<button onclick="downloadReflections()">Descargar mis reflexiones (.txt)</button><p id="saved" class="muted" aria-live="polite"></p></div>
+<div class="panel"><div class="tag">Aprendizajes esperados</div><ol><li>Reconoce la importancia de la memoria histórica para comprender las experiencias de personas y comunidades.</li><li>Relaciona los derechos humanos y la dignidad con el cuidado de Enfermería.</li><li>Identifica prácticas que pueden generar revictimización y propone alternativas respetuosas.</li><li>Comprende la influencia del contexto social, familiar y comunitario en las necesidades de cuidado.</li><li>Desarrolla decisiones basadas en escucha activa, autonomía y respeto.</li></ol></div>
+<div class="panel"><div class="tag">Fuentes y créditos</div><h3>Fuente institucional</h3><p>Museo Casa de la Memoria. (s. f.). <em>Recorridos virtuales</em>. <a href="https://www.museocasadelamemoria.gov.co/recorridos-virtuales-mcm/" target="_blank" rel="noopener">Consultar catálogo oficial</a>.</p><h3>Recorridos seleccionados</h3><ul id="source-list"></ul><h3>Recurso tecnológico</h3><p>AR.js. <a href="https://ar-js-org.github.io/AR.js-Docs/" target="_blank" rel="noopener">Documentación de AR.js</a>. A-Frame. <a href="https://aframe.io/docs/" target="_blank" rel="noopener">Documentación oficial</a>.</p><p class="muted">Los textos de relación con Enfermería, preguntas, escenarios ficticios y retroalimentaciones son materiales educativos originales del equipo. Las exposiciones, sus narrativas y sus imágenes pertenecen al Museo Casa de la Memoria; consúltalas en sus páginas originales y conserva sus créditos. La inserción en esta página se realiza mediante un visor externo cuando el sitio lo permite.</p></div>
+</section>
+</main>
+<footer>Proyecto académico · Cuidar desde la memoria · Museo Casa de la Memoria · Experiencia educativa con WebAR</footer>
+
+<script>
+const stations=[
+{id:1,title:"Niñez entre el conflicto y la esperanza",url:"https://www.museocasadelamemoria.gov.co/RV/Ninez_en_el_conflicto/",description:"Espacio del museo para conocer y reflexionar sobre testimonios de violencia y resistencia de la infancia en el conflicto armado colombiano.",why:"La infancia requiere un cuidado que reconozca la protección, el desarrollo, la seguridad y el derecho de niños y niñas a ser escuchados sin presión.",nursing:"En Enfermería invita a ofrecer explicaciones adecuadas a la edad, construir confianza, valorar necesidades actuales y activar rutas de protección cuando corresponda, sin interrogar ni forzar relatos.",concepts:["Protección integral","Escucha respetuosa","Autonomía progresiva","No revictimización"],ar:"PROTECCION DE LA INFANCIA",phrase:"Escuchar también es respetar el silencio.",question:"¿Cómo puedes ofrecer seguridad sin presionar al niño para que relate lo vivido?",case:"Un niño de 10 años permanece poco comunicativo durante una atención y evita responder preguntas sobre experiencias personales. No hay una urgencia que requiera obtener ese relato en ese momento.",choices:["Insistir hasta que cuente lo ocurrido para completar la valoración.","Presentarse, explicar lo que se hará con palabras adecuadas, ofrecer opciones y valorar sus necesidades actuales respetando su ritmo.","Dejar de hablarle y dirigir toda la atención exclusivamente al acompañante."],correct:1,feedback:["Insistir puede generar angustia y revictimización. La atención no debe depender de que el niño relate experiencias dolorosas.","Es la opción más respetuosa: prioriza seguridad, comunicación adecuada, participación y valoración de necesidades sin forzar el relato.","El acompañante puede aportar información, pero el niño debe ser reconocido, escuchado de acuerdo con su edad y tratado con dignidad."]},
+{id:2,title:"Rupturas y Arraigos – Sin | Sentidos de Ciudad",url:"https://www.museocasadelamemoria.gov.co/RV/rupturas/index.htm",description:"El museo presenta el desplazamiento forzado intraurbano y la experiencia de la comunidad de La Loma, en San Cristóbal, que ha afrontado desplazamientos y reconstruido lazos de confianza.",why:"Permite comprender que el territorio, la vivienda, la seguridad y las redes comunitarias influyen en la vida cotidiana y en las posibilidades de cuidar la salud.",nursing:"Enfermería puede explorar barreras de acceso, continuidad de tratamientos, condiciones de vivienda, redes de apoyo y necesidades de orientación, sin reducir a la persona a su condición de desplazamiento.",concepts:["Territorio","Desplazamiento","Determinantes sociales","Redes de apoyo"],ar:"TERRITORIO Y REDES DE APOYO",phrase:"El contexto también forma parte de la valoración.",question:"¿Qué necesidades debes explorar además del motivo clínico de consulta?",case:"Una persona que ha tenido que cambiar de barrio varias veces llega a consulta y manifiesta que ha perdido contacto con su centro de salud y no sabe cómo continuar sus controles.",choices:["Limitar la atención al síntoma del día y no preguntar por las barreras de acceso.","Explorar con respeto las barreras, los apoyos disponibles y las necesidades de continuidad, y orientar hacia los servicios pertinentes.","Suponer que no seguirá el tratamiento y registrar que no está comprometida."],correct:1,feedback:["Ignorar el contexto puede dejar sin atender barreras que afectan la continuidad y seguridad del cuidado.","Es adecuado explorar necesidades y recursos sin juzgar, y coordinar orientación y continuidad de atención.","La suposición estigmatiza. Las dificultades de continuidad pueden relacionarse con barreras estructurales y no con falta de interés."]},
+{id:3,title:"La voz de las manos – Prácticas que reconcilian",url:"https://www.museocasadelamemoria.gov.co/RV/manos/",description:"El recorrido propone una exploración práctica y reflexiva de procesos comunitarios de reconciliación y reconstrucción de vínculos afectados por las violencias y los conflictos.",why:"Invita a reconocer que las personas y comunidades también construyen formas de expresión, participación y reconstrucción de vínculos.",nursing:"Se relaciona con comunicación terapéutica, cuidado comunitario, participación, reconocimiento de capacidades y respeto por distintas formas de expresar necesidades y experiencias.",concepts:["Participación","Expresión","Reconciliación","Vínculos comunitarios"],ar:"PARTICIPACION Y VINCULOS",phrase:"Acompañar no significa decidir por la otra persona.",question:"¿Cómo puedes facilitar la participación sin imponer una forma de expresión?",case:"Durante una actividad grupal de promoción de la salud, una persona no desea hablar frente al grupo, pero permanece observando y escucha a los demás.",choices:["Insistir para que participe verbalmente porque la actividad exige que todos hablen.","Respetar su decisión y ofrecer otras formas voluntarias de participación, sin señalarla frente al grupo.","Excluirla de la actividad porque no participa como los demás."],correct:1,feedback:["La participación no debe imponerse; presionar puede generar incomodidad y afectar la confianza.","Es adecuado respetar la autonomía y ofrecer alternativas accesibles, sin convertir la participación verbal en una obligación.","Excluirla limita su participación y no reconoce que existen distintas maneras de vincularse."]},
+{id:4,title:"Archivo Vivo – Memorias de Madres",url:"https://www.museocasadelamemoria.gov.co/RV/Archivo%20vivo/",description:"Muestra que recupera la memoria del conflicto armado colombiano mediante la construcción de archivos, documentos, objetos y recuerdos.",why:"Permite reflexionar sobre el valor de los recuerdos y los objetos en la construcción de memoria, sin asumir que todas las personas desean compartir sus historias.",nursing:"Enfermería puede reconocer la historia de vida como parte de un cuidado centrado en la persona, escuchar sin juzgar, respetar la privacidad y ofrecer acompañamiento según las necesidades y preferencias.",concepts:["Memoria","Historia de vida","Acompañamiento","Dignidad y privacidad"],ar:"MEMORIA Y ACOMPANAMIENTO",phrase:"La historia de una persona le pertenece; compartirla es una decisión.",question:"¿Cómo acompañar sin apropiarte de la historia de otra persona?",case:"Una persona adulta se emociona al hablar de un recuerdo y luego expresa que prefiere no continuar con el tema durante la consulta.",choices:["Pedirle que continúe porque el relato es importante para comprender su situación.","Agradecer su confianza, respetar que no quiera continuar, preguntar qué necesita en ese momento y ofrecer apoyo.","Cambiar de tema abruptamente y evitar volver a comprobar cómo se encuentra."],correct:1,feedback:["Solicitar que continúe puede desconocer sus límites y generar malestar. No es necesario obtener todos los detalles para cuidar.","Es la opción más respetuosa: reconoce la confianza, respeta límites, explora necesidades presentes y ofrece acompañamiento.","Cambiar de tema sin reconocer su emoción puede transmitir indiferencia. Conviene validar y preguntar qué necesita."]}
+];
+let selectedStation=null,arScene=null,arReady=false,arSession=0,arVideoWatcher=null;
+const arCameraHome=document.getElementById("ar-camera").parentElement;
+const arCameraNext=document.getElementById("ar-camera").nextSibling;
+function chooseARStation(id){
+ const station=stations.find(s=>s.id===Number(id));
+ selectedStation=station||null;
+ document.getElementById("ar-station-name").textContent=station?station.title:"Ninguna. Elige una estación.";
+ const picker=document.getElementById("ar-station-select");
+ if(picker)picker.value=station?String(station.id):"";
+ const btn=document.getElementById("start-ar");if(btn)btn.disabled=!station;
+}
+
+function showView(id){if(id!=="ra" && document.body.classList.contains("ar-open")){closeARAndReset();return;} if(id!=="ra")stopAR();document.querySelectorAll(".view").forEach(v=>v.classList.toggle("hidden",v.id!==id));document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.view===id));window.scrollTo({top:0,behavior:"smooth"});}
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showView(b.dataset.view)));
+function renderMap(){const map=document.getElementById("station-map");map.innerHTML=stations.map(s=>`<article class="station-card"><div class="station-top"><div class="tag">Estación ${s.id}</div><h3>${s.title}</h3><p>${s.description}</p><p><strong>Relación con Enfermería:</strong> ${s.nursing}</p></div><div class="station-bottom"><button onclick="openStation(${s.id})">Explorar esta estación</button></div></article>`).join("");document.getElementById("source-list").innerHTML=stations.map(s=>`<li><a href="${s.url}" target="_blank" rel="noopener">${s.title}</a></li>`).join("");}
+function openStation(id){chooseARStation(id);const d=document.getElementById("station-detail");d.classList.remove("hidden");d.innerHTML=`<div class="detail-head"><div><div class="tag">Estación ${selectedStation.id} · Exposición del museo</div><h2>${selectedStation.title}</h2></div><button class="btn" onclick="showView('ra')">Activar realidad aumentada</button></div><p>${selectedStation.description}</p><div class="viewer"><iframe title="Recorrido virtual original: ${selectedStation.title}" src="${selectedStation.url}" loading="lazy" allow="fullscreen; autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe><div class="viewer-caption"><p>Visor del recorrido original del Museo Casa de la Memoria. Si no carga aquí, abre el recorrido en una pestaña nueva.</p><a class="btn" href="${selectedStation.url}" target="_blank" rel="noopener">Explorar recorrido original ↗</a></div></div><div class="detail-grid"><div><h3>¿Por qué elegimos esta estación?</h3><p>${selectedStation.why}</p><h3>Relación con Enfermería</h3><p>${selectedStation.nursing}</p><div class="concepts">${selectedStation.concepts.map(c=>`<span class="concept">${c}</span>`).join("")}</div></div><div class="callout"><strong>Pregunta para reflexionar</strong><p>${selectedStation.question}</p><p class="muted">Los contenidos del recorrido pertenecen al museo. Esta interpretación y su vínculo con Enfermería son elaboraciones educativas del equipo.</p></div></div><div class="case"><div class="tag">Situación ficticia de cuidado</div><p>${selectedStation.case}</p><strong>¿Qué decisión de cuidado tomarías?</strong><div>${selectedStation.choices.map((c,i)=>`<button class="choice" onclick="answerStation(${i})">${String.fromCharCode(65+i)}. ${c}</button>`).join("")}</div><div id="station-feedback" class="feedback hidden" aria-live="polite"></div></div>`;d.scrollIntoView({behavior:"smooth",block:"start"});}
+function answerStation(n){const f=document.getElementById("station-feedback");const ok=n===selectedStation.correct;f.classList.remove("hidden","bad");if(!ok)f.classList.add("bad");f.innerHTML=`<strong>${ok?"Decisión adecuada.":"Revisa esta decisión."}</strong><p>${selectedStation.feedback[n]}</p><p><strong>Principios relacionados:</strong> ${selectedStation.concepts.join(" · ")}.</p>`;}
+function renderQuiz(){const c=document.getElementById("quiz-container");c.innerHTML=stations.map((s,i)=>`<div class="case"><div class="tag">Caso ${i+1} · ${s.title}</div><p>${s.case}</p><strong>${s.question}</strong>${s.choices.map((ch,j)=>`<button class="choice" onclick="quizAnswer(${i},${j})">${String.fromCharCode(65+j)}. ${ch}</button>`).join("")}<div id="quiz-feedback-${i}" class="feedback hidden"></div></div>`).join("");document.getElementById("quiz-progress").style.width="0%";}
+let quizDone=new Set();function quizAnswer(i,n){const s=stations[i],f=document.getElementById("quiz-feedback-"+i),ok=n===s.correct;f.classList.remove("hidden","bad");if(!ok)f.classList.add("bad");f.innerHTML=`<strong>${ok?"Respuesta adecuada.":"Puedes reconsiderar esta opción."}</strong><p>${s.feedback[n]}</p>`;quizDone.add(i);document.getElementById("quiz-progress").style.width=(quizDone.size/stations.length*100)+"%";if(quizDone.size===4){document.getElementById("quiz-summary").classList.remove("hidden");document.getElementById("quiz-summary").innerHTML="<strong>Has revisado las cuatro situaciones.</strong><p>El objetivo no es calificarte, sino practicar decisiones que respeten dignidad, autonomía, escucha y contexto.</p>";}}
+async function loadScript(src){return new Promise((resolve,reject)=>{const existing=[...document.scripts].find(s=>s.src===src);if(existing){if(window.AFRAME)resolve();else existing.addEventListener("load",resolve,{once:true});return;}const s=document.createElement("script");s.src=src;s.onload=resolve;s.onerror=reject;document.head.appendChild(s);});}
+async function startAR(){
+ const status=document.getElementById("ar-status"),box=document.getElementById("ar-camera");
+ const session=++arSession;
+ if(!selectedStation){status.textContent="Primero selecciona una estación en el menú desplegable o en el mapa.";return;}
+ if(!location.protocol.startsWith("https:")&&location.hostname!=="localhost"){status.textContent="La cámara requiere HTTPS. Publica esta página en un servicio HTTPS y vuelve a abrirla.";return;}
+ document.getElementById("start-ar").disabled=true;
+ status.textContent="Cargando el sistema de realidad aumentada...";
+ try{
+  if(!window.AFRAME) await loadScript("https://aframe.io/releases/1.5.0/aframe.min.js");
+  if(!window.AFRAME.components["arjs-anchor"] && !window.AFRAME.components["arjs"]) {
+   await loadScript("https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js");
+  }
+  if(session!==arSession)return;
+  box.classList.remove("hidden");
+  if(box.parentElement!==document.body)document.body.appendChild(box);
+  box.classList.add("ar-fullscreen");
+  document.body.classList.add("ar-open");
+  const title=selectedStation.title.toUpperCase().replace(/"/g,"'");
+  const concept=selectedStation.ar.replace(/"/g,"'");
+  const phrase=selectedStation.phrase.replace(/"/g,"'");
+  const question=selectedStation.question.replace(/"/g,"'");
+  box.innerHTML=`
+   <video id="ar-visible-camera" autoplay muted playsinline webkit-playsinline aria-hidden="true"></video>
+   <div class="ar-hud">
+    <div class="ar-hud-label">REALIDAD AUMENTADA · ${title}</div>
+    <button type="button" aria-label="Cerrar realidad aumentada" onclick="closeARAndReset()">Cerrar ✕</button>
+   </div>
+   <div class="ar-switcher" aria-label="Cambiar estación sin volver al mapa">
+     <select id="ar-switch-station" aria-label="Seleccionar estación" onchange="switchARStation(this.value)">
+       ${stations.map(s=>`<option value="${s.id}" ${s.id===selectedStation.id?'selected':''}>${s.id}. ${s.title}</option>`).join('')}
+     </select>
+     <button type="button" onclick="nextARStation()">Siguiente ❯</button>
+   </div>
+   <div class="ar-hint" id="ar-hint">Apunta la cámara al marcador Hiro completo. Cuando lo reconozca, aparecerá sobre él el contenido de la estación seleccionada.</div>
+   <a-scene embedded vr-mode-ui="enabled:false" renderer="logarithmicDepthBuffer:true; precision:medium; alpha:true; colorManagement:true" arjs="sourceType:webcam; debugUIEnabled:false; trackingMethod:best;">
+    <a-marker id="hiro-marker" preset="hiro" emitevents="true">
+     <a-entity position="0 0.12 0">
+      <a-plane id="ar-info-panel" position="0 0.02 0" rotation="-90 0 0" width="1.45" height="0.96" material="shader:flat; color:#ffffff; side:double"></a-plane>
+     </a-entity>
+    </a-marker>
+    <a-entity camera></a-entity>
+   </a-scene>`;
+  const scene=box.querySelector("a-scene");
+  arScene=scene;
+  const hint=box.querySelector("#ar-hint");
+  const marker=box.querySelector("#hiro-marker");
+  const infoPanel=box.querySelector("#ar-info-panel");
+  // AR.js inserta su vídeo fuera del visor en Safari. Reutilizar el MISMO stream
+  // en una capa visible evita el fondo negro sin solicitar otra cámara.
+  const visibleCamera=box.querySelector("#ar-visible-camera");
+  const syncCamera=()=>{
+   if(session!==arSession||!box.isConnected)return;
+   const source=scene.systems?.arjs?.arToolkitSource;
+   const candidates=[source?.domElement,...document.querySelectorAll("video")];
+   const sourceVideo=candidates.find(v=>v&&v!==visibleCamera&&v.srcObject?.getVideoTracks?.().some(t=>t.readyState==="live"));
+   if(sourceVideo){
+    if(visibleCamera.srcObject!==sourceVideo.srcObject){
+     visibleCamera.srcObject=sourceVideo.srcObject;
+     visibleCamera.play().catch(()=>{hint.textContent="Toca la pantalla para activar la vista de cámara.";});
+    }
+   }
+   arVideoWatcher=requestAnimationFrame(syncCamera);
+  };
+  arVideoWatcher=requestAnimationFrame(syncCamera);
+  setTimeout(()=>{if(session===arSession&&!visibleCamera.srcObject){hint.textContent="No se recibe imagen de cámara. Revisa el permiso de Safari y vuelve a iniciar la RA.";}},6500);
+  visibleCamera.addEventListener("click",()=>visibleCamera.play().catch(()=>{}));
+
+
+  // Renderiza el contenido en una textura Canvas: evita el fallo de a-text
+  // que puede dejar visible únicamente el rectángulo blanco en algunos móviles.
+  const paintInfoPanel=()=>{
+   if(session!==arSession||!infoPanel.isConnected)return;
+   const canvas=document.createElement("canvas");
+   canvas.width=1024; canvas.height=675;
+   const ctx=canvas.getContext("2d");
+   // Dibujar la textura sin giro: el giro previo de 180° invertía todas las letras.
+   ctx.fillStyle="#ffffff"; ctx.fillRect(0,0,canvas.width,canvas.height);
+   ctx.fillStyle="#123047"; ctx.fillRect(0,0,canvas.width,105);
+   ctx.fillStyle="#ffffff"; ctx.textAlign="center"; ctx.textBaseline="middle";
+   const wrap=(text,maxWidth,font,lineHeight,y,maxLines)=>{
+    ctx.font=font;
+    const words=String(text).split(/\s+/); let line="",lines=[];
+    for(const word of words){
+     const test=line?line+" "+word:word;
+     if(ctx.measureText(test).width>maxWidth && line){lines.push(line);line=word;}
+     else line=test;
+    }
+    if(line)lines.push(line);
+    lines=lines.slice(0,maxLines);
+    lines.forEach((item,i)=>ctx.fillText(item,canvas.width/2,y+i*lineHeight,maxWidth));
+    return y+lines.length*lineHeight;
+   };
+   wrap(selectedStation.title,930,"bold 37px Arial",43,53,2);
+   ctx.fillStyle="#087e78";
+   let y=wrap(selectedStation.ar,900,"bold 34px Arial",42,155,2);
+   ctx.fillStyle="#24364b";
+   y=wrap(selectedStation.phrase,900,"30px Arial",39,Math.max(270,y+24),2);
+   ctx.fillStyle="#9a3412";
+   wrap(selectedStation.question,900,"bold 27px Arial",36,Math.max(430,y+35),3);
+   ctx.fillStyle="#64748b"; ctx.font="20px Arial";
+   ctx.fillText("CUIDAR DESDE LA MEMORIA · ENFERMERÍA",512,642);
+   const texture=new AFRAME.THREE.CanvasTexture(canvas);
+   texture.needsUpdate=true;
+   const mesh=infoPanel.getObject3D("mesh");
+   if(mesh){
+    if(mesh.material && mesh.material.map) mesh.material.map.dispose();
+    mesh.material=new AFRAME.THREE.MeshBasicMaterial({map:texture,side:AFRAME.THREE.DoubleSide});
+    mesh.material.needsUpdate=true;
+   }
+  };
+  infoPanel.addEventListener("loaded",paintInfoPanel,{once:true});
+  if(infoPanel.hasLoaded) paintInfoPanel();
+  marker.addEventListener("markerFound",()=>{if(session!==arSession)return;hint.textContent="¡Marcador reconocido! Mira el panel desde arriba del marcador Hiro.";});
+
+  marker.addEventListener("markerLost",()=>{if(session!==arSession)return;hint.textContent="Marcador perdido. Vuelve a centrar el marcador Hiro completo frente a la cámara.";});
+  scene.addEventListener("camera-init",()=>{status.textContent="Cámara activa. Busca el marcador Hiro para visualizar el panel 3D.";});
+  scene.addEventListener("camera-error",()=>{status.textContent="No se pudo iniciar la cámara. Revisa los permisos del navegador y cierra otras aplicaciones que puedan usarla.";});
+  document.getElementById("stop-ar").classList.remove("hidden");
+  document.getElementById("start-ar").classList.add("hidden");
+  status.textContent="Vista de realidad aumentada a pantalla completa. Para salir, pulsa Cerrar.";
+ }catch(e){
+  console.error(e);
+  stopAR();
+  status.textContent="No se pudo cargar A-Frame o AR.js. Comprueba la conexión y vuelve a intentarlo.";
+  document.getElementById("start-ar").disabled=false;
+ }
+}
+function switchARStation(id){
+ const target=stations.find(s=>s.id===Number(id));
+ if(!target||target.id===selectedStation?.id)return;
+ // Safari conserva la cámara de AR.js al recrear la escena. Recargamos el motor
+ // de forma automática, sin mandar al usuario al mapa, y reabrimos la RA.
+ try{sessionStorage.setItem('cdm_ar_switch_to',String(target.id));}catch(e){}
+ const hint=document.getElementById('ar-hint');
+ if(hint)hint.textContent='Cambiando a '+target.title+'…';
+ try{stopAR();}catch(e){}
+ window.location.reload();
+}
+function nextARStation(){
+ const current=stations.findIndex(s=>s.id===selectedStation?.id);
+ switchARStation(stations[(current+1)%stations.length].id);
+}
+function closeARAndReset(){
+ // Cerrar sale al apartado de RA, no al mapa de estaciones.
+ try{sessionStorage.setItem('cdm_ar_close_to_ra', selectedStation ? String(selectedStation.id) : '');}catch(e){}
+ try{stopAR();}catch(e){}
+ window.location.reload();
+}
+function stopAR(){
+ if(arVideoWatcher!==null){cancelAnimationFrame(arVideoWatcher);arVideoWatcher=null;}
+ ++arSession; // invalida eventos o cargas asíncronas de la sesión anterior
+ const box=document.getElementById("ar-camera");
+ const scene=arScene||(box&&box.querySelector("a-scene"));
+ const visible=box?.querySelector("#ar-visible-camera");
+ if(visible){visible.pause();visible.srcObject=null;}
+ if(scene){
+  try{scene.pause();}catch(e){}
+  try{
+   const system=scene.systems&&scene.systems.arjs;
+   const source=system&&(system.arToolkitSource||(system._arSession&&system._arSession.arToolkitSource));
+   if(source&&source.domElement){
+    const v=source.domElement;
+    if(v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());
+    if(v.parentNode)v.parentNode.removeChild(v);
+   }
+  }catch(e){}
+  try{scene.renderer&&scene.renderer.dispose();}catch(e){}
+  try{scene.parentNode&&scene.parentNode.removeChild(scene);}catch(e){}
+ }
+ // AR.js puede insertar el vídeo directamente en el body, fuera de a-scene.
+ document.querySelectorAll("video.arjs-video,video#arjs-video,video[data-arjs]").forEach(v=>{
+  try{if(v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());}catch(e){}
+  v.remove();
+ });
+ if(box){
+  box.querySelectorAll("video").forEach(v=>{try{if(v.srcObject)v.srcObject.getTracks().forEach(t=>t.stop());}catch(e){}});
+  box.replaceChildren();
+  box.classList.add("hidden");
+  box.classList.remove("ar-fullscreen");
+  // IMPORTANTE: devolver el contenedor a su lugar inicial; antes quedaba en body.
+  if(box.parentElement!==arCameraHome)arCameraHome.insertBefore(box,arCameraNext);
+ }
+ document.body.classList.remove("ar-open");
+ arScene=null;
+ const start=document.getElementById("start-ar");
+ if(start){start.classList.remove("hidden");start.disabled=!selectedStation;}
+ const stop=document.getElementById("stop-ar");if(stop)stop.classList.add("hidden");
+ const status=document.getElementById("ar-status");if(status)status.textContent="Cámara detenida. Puedes elegir otra estación y volver a iniciar.";
+}
+function downloadReflections(){const fields=[["¿Qué significa cuidar desde la memoria?",document.getElementById("reflection1").value],["¿Cómo puede Enfermería evitar la revictimización?",document.getElementById("reflection2").value],["¿Por qué es importante comprender el contexto social y familiar?",document.getElementById("reflection3").value],["¿Qué aprendizaje te llevas para tu práctica profesional?",document.getElementById("reflection4").value]];const content="CUIDAR DESDE LA MEMORIA\nReflexiones del estudiante\n\n"+fields.map(x=>x[0]+"\n"+(x[1].trim()||"(Sin respuesta)")).join("\n\n");const blob=new Blob([content],{type:"text/plain;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="reflexiones_cuidar_desde_la_memoria.txt";a.click();URL.revokeObjectURL(url);document.getElementById("saved").textContent="Se generó el archivo de reflexiones.";}
+renderMap();renderQuiz();
+const arPicker=document.getElementById("ar-station-select");
+arPicker.insertAdjacentHTML("beforeend",stations.map(s=>`<option value="${s.id}">${s.title}</option>`).join(""));
+chooseARStation("");
+try{
+ const switchTo=sessionStorage.getItem('cdm_ar_switch_to');
+ const closeToRA=sessionStorage.getItem('cdm_ar_close_to_ra');
+ if(switchTo!==null){
+  sessionStorage.removeItem('cdm_ar_switch_to');
+  if(stations.some(st=>String(st.id)===switchTo)){
+   chooseARStation(Number(switchTo));
+   showView('ra');
+   // Tras reconstruir el documento se crea una nueva escena AR.js y una nueva cámara.
+   // La recarga es automática, sin necesidad de volver al mapa o actualizar Safari.
+   setTimeout(()=>startAR(),180);
+  }
+ }else if(closeToRA!==null){
+  sessionStorage.removeItem('cdm_ar_close_to_ra');
+  if(stations.some(st=>String(st.id)===closeToRA))chooseARStation(Number(closeToRA));
+  showView('ra');
+ }else{
+ const saved=sessionStorage.getItem('cdm_ar_return_station');
+ if(saved!==null){
+  sessionStorage.removeItem('cdm_ar_return_station');
+  if(saved && stations.some(st=>String(st.id)===saved)){
+   openStation(Number(saved));
+   showView('estaciones');
+  }else showView('estaciones');
+ }
+ }
+}catch(e){}
+</script>
+</body></html>
